@@ -20,7 +20,18 @@
 
 ## Introduction
 
-**nf-core/rnaseq** is a bioinformatics pipeline that can be used to analyse RNA sequencing data obtained from organisms with a reference genome and annotation. It takes a samplesheet with FASTQ files or pre-aligned BAM files as input, performs quality control (QC), trimming and (pseudo-)alignment, and produces a gene expression matrix and extensive QC report.
+**nf-core/rnaseq** is a comprehensive bioinformatics pipeline designed for robust analysis of RNA sequencing data from organisms with reference genomes and annotations. This pipeline streamlines the entire RNA-seq analysis workflow, from raw reads to publication-ready results.
+
+### Key Features
+
+✨ **Flexible Input Options**: Accepts FASTQ files or pre-aligned BAM files  
+🔍 **Comprehensive QC**: Multi-layered quality control at every step  
+🧬 **Multiple Aligners**: Choose from STAR, HiSAT2, or pseudoalignment methods  
+📊 **Rich Reporting**: Detailed MultiQC reports with interactive visualizations  
+⚡ **Optimized Performance**: Containerized tools ensure reproducible, scalable execution  
+🎯 **Publication Ready**: Generates normalized expression matrices and extensive quality metrics
+
+The pipeline performs quality control (QC), adapter trimming, alignment or pseudoalignment, quantification, and produces comprehensive reports alongside gene expression matrices ready for downstream statistical analysis.
 
 ![nf-core/rnaseq metro map](docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
 
@@ -58,6 +69,21 @@
 > **Warning**
 > Quantification isn't performed if using `--aligner hisat2` due to the lack of an appropriate option to calculate accurate expression estimates from HISAT2 derived genomic alignments. However, you can use this route if you have a preference for the alignment, QC and other types of downstream analysis compatible with the output of HISAT2.
 
+## Quick Start
+
+For experienced users, here's the minimal command to get started:
+
+```bash
+nextflow run nf-core/rnaseq \
+    --input samplesheet.csv \
+    --outdir results \
+    --fasta genome.fa \
+    --gtf genome.gtf \
+    -profile docker
+```
+
+💡 **New to RNA-seq analysis?** Check out our [step-by-step tutorial](https://nf-co.re/rnaseq/usage) and the [parameter guide](https://nf-co.re/rnaseq/parameters) for detailed explanations.
+
 ## Usage
 
 > [!NOTE]
@@ -75,6 +101,14 @@ CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz,a
 ```
 
 Each row represents a fastq file (single-end) or a pair of fastq files (paired end). Rows with the same sample identifier are considered technical replicates and merged automatically. The strandedness refers to the library preparation and will be automatically inferred if set to `auto`.
+
+### 📝 Samplesheet Tips
+
+- **File paths**: Can be absolute paths, relative paths, or URLs (S3, HTTP, FTP)
+- **Technical replicates**: Multiple rows with the same sample name will be merged
+- **Biological replicates**: Use different sample names (e.g., `CONTROL_REP1`, `CONTROL_REP2`)
+- **Strandedness**: Use `auto` for automatic detection, or specify `forward`, `reverse`, or `unstranded`
+- **Mixed data**: You can mix single-end and paired-end samples in the same run
 
 The pipeline supports a two-step reprocessing workflow using BAM files from previous runs. Run initially with `--save_align_intermeds` to generate a samplesheet with BAM paths, then reprocess using `--skip_alignment` for efficient downstream analysis without repeating expensive alignment steps. This feature is designed specifically for pipeline-generated BAMs.
 
@@ -107,6 +141,24 @@ This pipeline quantifies RNA-sequenced reads relative to genes/transcripts in th
 A short talk about the history, current status and functionality on offer in this pipeline was given by Harshil Patel ([@drpatelh](https://github.com/drpatelh)) on [8th February 2022](https://nf-co.re/events/2022/bytesize-32-nf-core-rnaseq) as part of the nf-core/bytesize series.
 
 You can find numerous talks on the [nf-core events page](https://nf-co.re/events) from various topics including writing pipelines/modules in Nextflow DSL2, using nf-core tooling, running nf-core pipelines as well as more generic content like contributing to Github. Please check them out!
+
+## Troubleshooting
+
+### Common Issues
+
+🐛 **Pipeline fails at STAR alignment**: Check that your reference genome and GTF files are compatible and properly formatted.
+
+🐛 **"No such file or directory" errors**: Verify file paths in your samplesheet are correct and accessible.
+
+🐛 **Memory/resource errors**: Adjust resources in your nextflow.config or use a profile suited to your compute environment.
+
+🐛 **Strandedness detection issues**: Manually specify strandedness in your samplesheet if auto-detection fails.
+
+### Getting Help
+
+- 💬 Join the [`#rnaseq` Slack channel](https://nfcore.slack.com/channels/rnaseq) for community support
+- 🐙 Check [existing GitHub issues](https://github.com/nf-core/rnaseq/issues) or create a new one
+- 📖 Read the comprehensive [troubleshooting guide](https://nf-co.re/rnaseq/usage#troubleshooting)
 
 ## Credits
 

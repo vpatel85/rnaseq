@@ -26,6 +26,38 @@
 
 > In case the image above is not loading, please have a look at the [static version](docs/images/nf-core-rnaseq_metro_map_grey.png).
 
+## Quick Start
+
+Ready to analyze your RNA-seq data? Follow these essential steps:
+
+### 1. **Install Nextflow** (if not already installed)
+```bash
+curl -s https://get.nextflow.io | bash
+sudo mv nextflow /usr/local/bin/
+```
+
+### 2. **Test the pipeline** with sample data
+```bash
+nextflow run nf-core/rnaseq -profile test,docker --outdir results
+```
+
+### 3. **Run with your data**
+Create a samplesheet (`samplesheet.csv`) and run:
+```bash
+nextflow run nf-core/rnaseq \
+    --input samplesheet.csv \
+    --outdir results \
+    --gtf your_genes.gtf \
+    --fasta your_genome.fa \
+    -profile docker
+```
+
+💡 **Need help?** Check the [usage documentation](https://nf-co.re/rnaseq/usage) or join our [Slack channel](https://nfcore.slack.com/channels/rnaseq).
+
+---
+
+## Pipeline Overview
+
 1. Merge re-sequenced FastQ files ([`cat`](http://www.linfo.org/cat.html))
 2. Auto-infer strandedness by subsampling and pseudoalignment ([`fq`](https://github.com/stjude-rust-labs/fq), [`Salmon`](https://combine-lab.github.io/salmon/))
 3. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))

@@ -20,7 +20,18 @@
 
 ## Introduction
 
-**nf-core/rnaseq** is a bioinformatics pipeline that can be used to analyse RNA sequencing data obtained from organisms with a reference genome and annotation. It takes a samplesheet with FASTQ files or pre-aligned BAM files as input, performs quality control (QC), trimming and (pseudo-)alignment, and produces a gene expression matrix and extensive QC report.
+**nf-core/rnaseq** is a comprehensive bioinformatics pipeline designed to analyze RNA sequencing data from organisms with a reference genome and annotation. This robust pipeline processes raw FASTQ files or pre-aligned BAM files through a complete analytical workflow including quality control (QC), adapter trimming, alignment/pseudo-alignment, and quantification to produce publication-ready gene expression matrices and extensive quality control reports.
+
+The pipeline is optimized for scalability and reproducibility, supporting execution on local computers, HPC clusters, and cloud platforms. It follows nf-core best practices and includes comprehensive documentation, automated testing, and standardized outputs suitable for downstream analysis and publication.
+
+## Key Features
+
+- 🧬 **Multiple alignment options**: Choose from STAR, HISAT2, or pseudoalignment with Salmon/Kallisto
+- 📊 **Comprehensive QC**: Extensive quality control reporting with MultiQC integration
+- 🔧 **Flexible workflows**: Support for UMI handling, strand-specificity detection, and multiple quantification methods  
+- ☁️ **Cloud-ready**: Optimized for execution on AWS, Azure, GCP, and HPC systems via Seqera Platform
+- 📋 **Standardized outputs**: Publication-ready gene expression matrices and detailed QC reports
+- 🔄 **Reproducible**: Containerized tools with version control and detailed provenance tracking
 
 ![nf-core/rnaseq metro map](docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
 
@@ -62,6 +73,20 @@
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+
+### Running on Seqera Platform
+
+For the easiest and most scalable way to run this pipeline, we recommend using [Seqera Platform](https://seqera.io/platform/) (formerly Tower). Seqera Platform provides:
+
+- **One-click deployment** to AWS, Azure, GCP, or your on-premise infrastructure
+- **Automatic resource scaling** with optimal cost management
+- **Real-time monitoring** and detailed execution reports
+- **Collaborative workspaces** for team-based research
+- **Data management** with secure, compliant data handling
+
+[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nf-core/rnaseq)
+
+Simply click the launch button above, sign in to your Seqera Platform account, configure your compute environment and dataset, and launch your analysis with enterprise-grade infrastructure management.
 
 First, prepare a samplesheet with your input data that looks as follows:
 
